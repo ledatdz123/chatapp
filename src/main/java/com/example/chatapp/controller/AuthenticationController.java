@@ -31,4 +31,8 @@ public class AuthenticationController {
         UserApp userApp= userServiceImpl.getProfile(authentication);
         return userApp;
     }
+    @GetMapping("/test/deploy")
+    public String testDeploy(){
+        return "Deploy success";
+    }
 }
