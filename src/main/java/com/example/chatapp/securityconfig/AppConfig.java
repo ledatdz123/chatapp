@@ -82,6 +82,7 @@ public class AppConfig {
                         "/webjars/**",
                         "/swagger-ui.html"
                 ).permitAll()
+                .requestMatchers("/").permitAll()
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/api/upload").permitAll()
                 .requestMatchers("/guest/**").permitAll()
