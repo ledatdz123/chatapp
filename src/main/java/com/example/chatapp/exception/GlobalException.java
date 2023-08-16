@@ -1,5 +1,6 @@
 package com.example.chatapp.exception;
 
+import com.example.chatapp.dto.response.BaseResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -7,11 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class GlobalException {
+public class GlobalException extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorDetail> UserExceptionHandler(UserException e, WebRequest req){
         ErrorDetail err=new ErrorDetail(e.getMessage(), req.getDescription(false), LocalDateTime.now());
@@ -30,22 +32,18 @@ public class GlobalException {
         return new ResponseEntity<ErrorDetail>(err, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorDetail> MethodArgumentNotValidException(MethodArgumentNotValidException me, WebRequest req){
-        String error=me.getBindingResult().getFieldError().getDefaultMessage();
-        ErrorDetail err=new ErrorDetail("Validation error", error, LocalDateTime.now());
-        return new ResponseEntity<ErrorDetail>(err, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ErrorDetail> handleNoHandlerFoundException(NoHandlerFoundException e, WebRequest req){
-        ErrorDetail err=new ErrorDetail("Endpoint not found",e.getMessage(), LocalDateTime.now());
-        return new ResponseEntity<ErrorDetail>(err, HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetail> otherErrorHandler(Exception e, WebRequest req){
         ErrorDetail err=new ErrorDetail(e.getMessage(), req.getDescription(false), LocalDateTime.now());
         return new ResponseEntity<ErrorDetail>(err, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<BaseResponseDTO> handleBaseException(BaseException e){
+        BaseResponseDTO response = BaseResponseDTO.builder()
+                .code(e.getCode())
+                .message(e.getMessage())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 }

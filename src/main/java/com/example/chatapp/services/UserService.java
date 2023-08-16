@@ -13,4 +13,9 @@ public interface UserService {
     public UserApp finUserProfile(String jwt) throws UserException;
     public UserApp updateUser(Integer id, UpdateUserRequest red) throws UserException;
     public List<UserApp> searchUser(String query);
+    public UserApp updateUser(UserApp updateUser, UserApp existsUser) throws UserException;
+    public List<UserApp> findUserByIds(List<Integer> userIds) throws UserException;
+    public List<UserApp> searchUserByQuery(String query);
+    public void savedPost(Integer userId, Integer postId);
+    public void deleteSavedPost(Integer userId, Integer postId);
 }

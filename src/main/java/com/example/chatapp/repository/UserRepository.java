@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserApp, Integer> {
-    Optional<UserApp> findByUsername(String email);
+    UserApp findByUsername(String email);
     //@Query("select u from UserApp u where u.fullName like %:query% or u.email like %:query%")
     @Query("select u from UserApp u where u.username like %:query%")
     public List<UserApp> searchUser(@Param("query") String query);
+    UserApp findByEmail(String email);
 }

@@ -33,15 +33,8 @@ public class ChatappApplication {
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
 		return args -> {
-			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("USER"));
-
-			Set<Role> roles = new HashSet<>();
-			roles.add(adminRole);
-
-			UserApp admin = new UserApp(1,"az@gmail.com" , passwordEncoder.encode("password"), roles);
-
-			userRepository.save(admin);
+			Role adminRole = roleRepository.save(new Role(1l,"ADMIN"));
+			Role userRole=roleRepository.save(new Role(2l,"USER"));
 		};
 		//java -jar chatapp-0.0.1-SNAPSHOT.jar
 	}

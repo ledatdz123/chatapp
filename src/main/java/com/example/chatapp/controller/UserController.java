@@ -17,6 +17,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceImpl userServiceImpl;
+    @Autowired
+    UserServiceImpl userService;
     @GetMapping("/")
     public String get(){
         return "User access level";
@@ -33,9 +35,33 @@ public class UserController {
         HashSet<UserApp> set=new HashSet<>(users);
         return new ResponseEntity<HashSet<UserApp>>(set, HttpStatus.ACCEPTED);
     }
-//    @GetMapping("/profile")
-//    public UserApp getProfile(Authentication authentication){
-//        UserApp userApp=userServices.getProfile(authentication);
-//        return userApp;
-//    }
+    @GetMapping("/profile")
+    public UserApp getProfile(Authentication authentication){
+        UserApp userApp= userServiceImpl.getProfile(authentication);
+        return userApp;
+    }
+    @PostMapping("/savePost/{postId}")
+    public ResponseEntity<String> savePostFromUser(Authentication authentication, @PathVariable Integer postId) {
+        try {
+            UserApp userApp=userService.getProfile(authentication);
+            userService.savedPost(userApp.getUserId(), postId);
+            // You can return an appropriate success message in the response if needed.
+            return ResponseEntity.ok("Post saved successfully.");
+        } catch (IllegalArgumentException e) {
+            // Return an error response with the appropriate message.
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/unSavePost/{postId}")
+    public ResponseEntity<String> deleteSavedPost(Authentication authentication, @PathVariable Integer postId) {
+        try {
+            UserApp userApp=userService.getProfile(authentication);
+            userService.deleteSavedPost(userApp.getUserId(), postId);
+            // You can return an appropriate success message in the response if needed.
+            return ResponseEntity.ok("Saved post deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            // Return an error response with the appropriate message.
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
