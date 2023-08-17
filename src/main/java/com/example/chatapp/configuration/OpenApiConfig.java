@@ -28,11 +28,11 @@ import org.springframework.context.annotation.Configuration;
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://localhost:9110"
+                        url = "http://localhost:8080"
                 ),
                 @Server(
                         description = "PRO ENV",
-                        url = "http://localhost:9110"
+                        url = "https://media-chat-server.onrender.com/"
                 )
         }
 )
