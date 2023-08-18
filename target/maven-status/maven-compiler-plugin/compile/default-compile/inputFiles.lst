@@ -42,7 +42,6 @@ D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatap
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\exception\BaseException.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\securityconfig\jwt\impl\JwtServiceImpl.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\dto\response\BaseResponseDTO.java
-D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\configuration\CorsConfig.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\securityconfig\service\security\UserDetailsServiceCustom.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\services\follow\FollowersService.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\dto\request\UserDTO.java

@@ -30,6 +30,7 @@ public class ChatappApplication {
 //			}
 //		};
 //	}
+
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
 		return args -> {

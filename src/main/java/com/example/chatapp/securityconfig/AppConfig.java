@@ -7,6 +7,7 @@ import com.example.chatapp.securityconfig.filter.JwtUsernamePasswordAuthenticati
 import com.example.chatapp.securityconfig.jwt.JwtConfig;
 import com.example.chatapp.securityconfig.jwt.JwtService;
 import com.example.chatapp.securityconfig.service.security.UserDetailsServiceCustom;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -84,6 +90,7 @@ public class AppConfig {
                 ).permitAll()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/api/upload").permitAll()
                 .requestMatchers("/guest/**").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
@@ -102,7 +109,25 @@ public class AppConfig {
                 .and()
                 .addFilterBefore(new JwtUsernamePasswordAuthenticationFilter(manager, jwtConfig, jwtService), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig, jwtService), UsernamePasswordAuthenticationFilter.class)
-        ;
+        .cors().configurationSource(new CorsConfigurationSource() {
+            @Override
+            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                CorsConfiguration cfg=new CorsConfiguration();
+                cfg.setAllowedOrigins(Arrays.asList(
+                        "http://localhost:3000",
+                        "http://localhost:4200",
+                        "https://media-chat-client.vercel.app"
+                ));
+                cfg.setAllowedMethods(Collections.singletonList("*"));
+                cfg.setAllowCredentials(true);
+                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                cfg.setMaxAge(3600L);
+                return cfg;
+            }
+        })
+        .and().httpBasic().and().formLogin();
         return http.build();
     }
 }
