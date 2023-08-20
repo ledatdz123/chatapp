@@ -1,5 +1,6 @@
 package com.example.chatapp.controller;
 
+import com.example.chatapp.dto.UserDTO;
 import com.example.chatapp.model.UserApp;
 import com.example.chatapp.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,17 @@ public class UserController {
         HashSet<UserApp> set=new HashSet<>(users);
         return new ResponseEntity<HashSet<UserApp>>(set, HttpStatus.ACCEPTED);
     }
+//    @GetMapping("/profile")
+//    public UserApp getProfile(Authentication authentication){
+//        UserApp userApp= userServiceImpl.getProfile(authentication);
+//        return userApp;
+//    }
+
     @GetMapping("/profile")
-    public UserApp getProfile(Authentication authentication){
-        UserApp userApp= userServiceImpl.getProfile(authentication);
-        return userApp;
+    public UserDTO getProfile(Authentication authentication){
+        UserApp userApp=userService.getProfile(authentication);
+        UserDTO userDTO=UserDTO.mapUserToDTO(userApp);
+        return userDTO;
     }
     @PostMapping("/savePost/{postId}")
     public ResponseEntity<String> savePostFromUser(Authentication authentication, @PathVariable Integer postId) {

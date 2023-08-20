@@ -2,6 +2,7 @@ package com.example.chatapp.dto;
 
 import com.example.chatapp.model.Followers;
 import com.example.chatapp.model.Post;
+import com.example.chatapp.model.Role;
 import com.example.chatapp.model.UserApp;
 import lombok.Data;
 
@@ -11,9 +12,10 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Integer userId;
     private String username;
+    private String email;
     private String password;
     private String userImage;
-    //private Set<Role> authorities;
+    private Set<Role> authorities;
     private List<UserDTO> followers;
     private List<UserDTO> following;
     private Set<PostDTO> savedPosts;
@@ -21,10 +23,11 @@ public class UserDTO {
         UserDTO userDTO=new UserDTO();
         userDTO.setUserId(userApp.getUserId());
         userDTO.setUsername(userApp.getUsername());
+        userDTO.setEmail(userApp.getEmail());
         userDTO.setPassword(userApp.getPassword());
         userDTO.setUserImage(userApp.getUserImage());
-//        Set<String> roles=new HashSet<>();
-//        userDTO.setAuthorities((Set<Role>) userApp.getAuthorities());
+        Set<String> roles=new HashSet<>();
+        userDTO.setAuthorities(userApp.getRoles());
 
         Set<PostDTO> savedPostDTOs = mapPostsToDTOs(userApp.getSavedPosts());
 
