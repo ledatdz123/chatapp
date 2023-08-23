@@ -12,12 +12,9 @@ import com.example.chatapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +42,12 @@ public class UserServiceImpl implements UserService{
             return opt.get();
         }
         throw new UserException("User not found with id"+id);
+    }
+
+    @Override
+    public UserApp finUserUserName(String username) throws UserException {
+        UserApp userApp=userRepo.findByUsername(username);
+        return userApp;
     }
 
     @Override
@@ -88,6 +91,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserApp> searchUserByQuery(String query) {
         return null;
+    }
+
+    @Override
+    public List<Object[]> getPopular() {
+        return userRepo.getTopFiveUser();
     }
 
     @Override

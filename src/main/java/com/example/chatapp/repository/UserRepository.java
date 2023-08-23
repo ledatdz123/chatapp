@@ -14,4 +14,11 @@ public interface UserRepository extends JpaRepository<UserApp, Integer> {
     @Query("select u from UserApp u where u.username like %:query%")
     public List<UserApp> searchUser(@Param("query") String query);
     UserApp findByEmail(String email);
+
+    @Query(value = "select u.user_id, u.username, u.user_image, COUNT(f.to_user_fk) AS follow_count from users u left join followers f \n" +
+            "ON u.user_id = f.to_user_fk\n" +
+            "GROUP BY u.user_id, u.username\n" +
+            "ORDER by follow_count DESC\n" +
+            "LIMIT 6;", nativeQuery = true)
+    public List<Object[]> getTopFiveUser();
 }

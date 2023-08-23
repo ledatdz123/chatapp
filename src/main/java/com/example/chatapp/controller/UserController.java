@@ -1,6 +1,8 @@
 package com.example.chatapp.controller;
 
+import com.example.chatapp.dto.PopularDTO;
 import com.example.chatapp.dto.UserDTO;
+import com.example.chatapp.exception.UserException;
 import com.example.chatapp.model.UserApp;
 import com.example.chatapp.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -47,6 +50,23 @@ public class UserController {
         UserApp userApp=userService.getProfile(authentication);
         UserDTO userDTO=UserDTO.mapUserToDTO(userApp);
         return userDTO;
+    }
+    @GetMapping("/{username}")
+    public UserDTO getUserName(@PathVariable String username) throws UserException {
+        UserApp userApp=userService.finUserUserName(username);
+        UserDTO userDTO=UserDTO.mapUserToDTO(userApp);
+        return userDTO;
+    }
+    @GetMapping("/popular")
+    public List<PopularDTO> getPoppular(){
+        List<Object[]> list= userService.getPopular();
+        List<PopularDTO> popularUsers=new ArrayList<>();
+        for (Object[] obj:list
+             ) {
+            PopularDTO popularDTO=PopularDTO.convertObjectToArray(obj);
+            popularUsers.add(popularDTO);
+        }
+        return popularUsers;
     }
     @PostMapping("/savePost/{postId}")
     public ResponseEntity<String> savePostFromUser(Authentication authentication, @PathVariable Integer postId) {

@@ -7,6 +7,7 @@ D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatap
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\model\Comment.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\securityconfig\jwt\JwtConfig.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\dto\HelperUtils.java
+D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\dto\PopularDTO.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\exception\ChatException.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\securityconfig\filter\JwtTokenAuthenticationFilter.java
 D:\be-sample\New Appchat\newchat\deploy\chatapp\src\main\java\com\example\chatapp\securityconfig\filter\CustomAuthenticationProvider.java
