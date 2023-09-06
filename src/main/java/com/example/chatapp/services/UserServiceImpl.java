@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private PostRepository postRepository;
     public UserApp getProfile(Authentication authentication){
-        UserApp userApp=userRepo.findByEmail(authentication.getName());
+        UserApp userApp=userRepo.findByUsername(authentication.getName());
         if (userApp!=null){
             return userApp;
         }

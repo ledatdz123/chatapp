@@ -1,6 +1,7 @@
 package com.example.chatapp.dto;
 
 public class RegistrationDTO {
+    private String name;
     private String username;
     private String password;
 
@@ -8,8 +9,17 @@ public class RegistrationDTO {
         super();
     }
 
-    public RegistrationDTO(String username, String password){
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RegistrationDTO(String name, String username, String password){
         super();
+        this.name=name;
         this.username = username;
         this.password = password;
     }

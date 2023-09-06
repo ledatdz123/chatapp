@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Integer userId;
     private String username;
-    private String email;
+    private String name;
     private String password;
     private String userImage;
     private Set<Role> authorities;
@@ -23,11 +23,11 @@ public class UserDTO {
         UserDTO userDTO=new UserDTO();
         userDTO.setUserId(userApp.getUserId());
         userDTO.setUsername(userApp.getUsername());
-        userDTO.setEmail(userApp.getEmail());
+        userDTO.setName(userApp.getName());
         userDTO.setPassword(userApp.getPassword());
         userDTO.setUserImage(userApp.getUserImage());
         Set<String> roles=new HashSet<>();
-        userDTO.setAuthorities(userApp.getRoles());
+        userDTO.setAuthorities((Set<Role>) userApp.getAuthorities());
 
         Set<PostDTO> savedPostDTOs = mapPostsToDTOs(userApp.getSavedPosts());
 
