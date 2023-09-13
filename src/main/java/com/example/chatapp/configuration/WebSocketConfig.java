@@ -26,17 +26,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/group", "/user");
         registry.setUserDestinationPrefix("/user");
     }
-    @Bean
-    WebMvcConfigurer corsConfig() {
-        return new WebMvcConfigurer() {
-
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowedOrigins("http://localhost:3000");
-            }
-        };
-    }
 }

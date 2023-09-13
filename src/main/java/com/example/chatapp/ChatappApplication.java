@@ -21,15 +21,15 @@ public class ChatappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChatappApplication.class, args);
 	}
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer(){
-//		return new WebMvcConfigurer() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-//			}
-//		};
-//	}
+	@Bean
+	public WebMvcConfigurer corsConfigurer(){
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000","https://media-chat-client.vercel.app");
+			}
+		};
+	}
 @Bean
 CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
 	return args -> {
